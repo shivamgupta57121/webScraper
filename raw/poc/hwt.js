@@ -16,14 +16,16 @@ function extractData(html){
 
     // get the bowling table for both the innings
     let bothBowlerTable = selTool(".table.bowler");
-    // console.log(bothBowlerTable.length);
-    // let tableHtml = "";
-    // for(let i = 0 ; i < bothBowlerTable.length ; i++){
-    //     tableHtml += selTool(bothBowlerTable[i]);
-    // }
-    // console.log(tableHtml);
+    console.log(bothBowlerTable.length);
+    let tableHtml = "";
+    for(let i = 0 ; i < bothBowlerTable.length ; i++){
+        tableHtml += selTool(bothBowlerTable[i]).html();
+    }
+    console.log(tableHtml);
 
-    // get name and wickets of every player
+    // get name and wickets of every player and compare wickets
+    let hwtName = "";
+    let hwkt = 0;
     for(let i = 0 ; i < bothBowlerTable.length ; i++){
         let playersRow = selTool(bothBowlerTable[i]).find("tbody tr");
         for(let j = 0 ; j < playersRow.length ; j++){
@@ -31,11 +33,14 @@ function extractData(html){
             let playerName = selTool(allColOfPlayer[0]).text();
             let wickets = selTool(allColOfPlayer[4]).text();
             console.log(playerName,wickets);  
+
+            if(hwkt <= Number.parseInt(wickets)){
+                hwtName = playerName;
+                hwkt = Number.parseInt(wickets);
+            }
             
         }
         console.log('```````````````````````````````````````````');
     }
-        
-    // compare wickets
-
+    console.log(hwtName,hwkt);
 }
